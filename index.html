@@ -3,163 +3,245 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>拼好图</title>
-    <!-- 新增图标链接 -->
-    <link rel="icon" href="http://cdnjson.com/images/2025/05/17/1000009028.png" type="image/png">
+    <title>拼好图-工具</title>
     <style>
-        * {
+        :root {
+            --sky-blue: #87CEEB;
+            --light-blue: #E6F7FF;
+            --sun-yellow: #FFD700;
+            --cloud-white: #FFFFFF;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, var(--sky-blue), #B0E0E6);
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: "Segoe UI", sans-serif;
-            list-style: none;
-            text-decoration: none;
-        }
-
-        body {
-            background: linear-gradient(135deg, #e8f4f8, #f0fafa);
-            line-height: 1.6;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        .sky-container {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px;
+            z-index: 1;
+        }
+        
+        .sun {
+            position: absolute;
+            top: 40px;
+            right: 60px;
+            width: 80px;
+            height: 80px;
+            background: var(--sun-yellow);
+            border-radius: 50%;
+            box-shadow: 0 0 40px 15px rgba(255, 215, 0, 0.4);
+            z-index: -1;
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .cloud {
+            position: absolute;
+            background: var(--cloud-white);
+            border-radius: 50px;
+            z-index: -1;
+            opacity: 0.9;
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+        
+        .cloud-1 {
+            width: 120px;
+            height: 60px;
+            top: 15%;
+            left: 10%;
+            animation: float 12s ease-in-out infinite;
+        }
+        
+        .cloud-2 {
+            width: 180px;
+            height: 80px;
+            top: 25%;
+            right: 8%;
+            animation: float 15s ease-in-out infinite 2s;
+        }
+        
+        .cloud-3 {
+            width: 100px;
+            height: 50px;
+            bottom: 20%;
+            left: 15%;
+            animation: float 10s ease-in-out infinite 1s;
+        }
+        
+        .navigation-card {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            margin-top: 50px;
+            position: relative;
             overflow: hidden;
         }
-
-        /* 背景动效 */
-        .bg-particles {
-            position: fixed;
+        
+        .navigation-card::before {
+            content: '';
+            position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
+            right: 0;
+            height: 10px;
+            background: linear-gradient(90deg, #4FC3F7, #4DD0E1, #4DB6AC);
+            border-radius: 20px 20px 0 0;
         }
-
-        .particle {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: #87ceeb;
-            border-radius: 50%;
-            opacity: 0.7;
-            animation: float 8s linear infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-30px); }
-        }
-
-        /* 主容器 */
-        .container {
+        
+        h1 {
+            color: #0078D7;
             text-align: center;
-            padding: 2rem;
+            margin-bottom: 30px;
+            font-size: 28px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .link-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .link-item {
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(135, 206, 235, 0.2);
-            margin: 1rem;
-            animation: fadeIn 0.8s ease-out;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        
+        .link-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
-
-        /* 标题 */
-        .title {
-            font-size: 2.5rem;
-            color: #1e90ff;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 0 10px rgba(30, 144, 255, 0.1);
+        
+        .link-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4FC3F7, #4DD0E1);
         }
-
-        .subtitle {
-            color: #666;
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-        }
-
-        /* 导航按钮 */
-        .nav-btn {
-            display: inline-flex;
+        
+        .link-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #0078D7;
+            margin-bottom: 10px;
+            display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-            padding: 1rem 2rem;
-            margin: 0.5rem;
-            background: #1e90ff;
+        }
+        
+        .link-title span {
+            margin-right: 10px;
+            font-size: 24px;
+        }
+        
+        .link-desc {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .link-btn {
+            display: inline-block;
+            padding: 8px 15px;
+            background: linear-gradient(135deg, #4FC3F7, #4DD0E1);
             color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s;
             border: none;
-            border-radius: 24px;
-            font-size: 1rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(30, 144, 255, 0.2);
         }
-
-        .nav-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(30, 144, 255, 0.3);
+        
+        .link-btn:hover {
+            background: linear-gradient(135deg, #3FB8F5, #3DCAD9);
+            box-shadow: 0 3px 10px rgba(63, 184, 245, 0.3);
         }
-
-        .nav-btn i {
-            font-size: 1.25rem;
+        
+        .bird {
+            position: absolute;
+            font-size: 24px;
+            animation: fly 20s linear infinite;
         }
-
-        /* 图标样式（使用Font Awesome，需联网加载） */
-        @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css");
-
-        /* 响应式设计 */
-        @media (max-width: 768px) {
-            .title { font-size: 2rem; }
-            .nav-btn { padding: 1rem 1.5rem; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-20px) translateX(10px); }
+        }
+        
+        @keyframes fly {
+            0% { transform: translateX(-100px) translateY(50px); }
+            100% { transform: translateX(calc(100vw + 100px)) translateY(0); }
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: white;
+            font-size: 14px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
 <body>
-    <div class="bg-particles">
-        <div class="particle" style="left: 10%; animation-delay: 2s;"></div>
-        <div class="particle" style="left: 30%; animation-delay: 5s;"></div>
-        <div class="particle" style="left: 50%; animation-delay: 8s;"></div>
-        <div class="particle" style="left: 70%; animation-delay: 3s;"></div>
-        <div class="particle" style="left: 90%; animation-delay: 6s;"></div>
+    <div class="sun">☀️</div>
+    <div class="cloud cloud-1">☁️</div>
+    <div class="cloud cloud-2">☁️</div>
+    <div class="cloud cloud-3">☁️</div>
+    
+    <div class="bird">🐦</div>
+    <div class="bird" style="top: 30%; animation-delay: 5s;">🕊️</div>
+    <div class="bird" style="top: 70%; animation-delay: 8s;">🐦</div>
+    
+    <div class="sky-container">
+        <div class="navigation-card">
+            <h1>☁️ 拼好图 🌈</h1>
+            
+            <div class="link-container">
+                <div class="link-item">
+                    <div class="link-title"><span>🧩</span> 创作拼图</div>
+                    <div class="link-desc">一键生成热门的碎片图</div>
+                    <a href="http://jietu.caning.cc" target="_blank" class="link-btn">立即创作</a>
+                </div>
+                
+                <div class="link-item">
+                    <div class="link-title"><span>🐹</span> 碎片还原</div>
+                    <div class="link-desc">浏览和还原碎片图片，祝大老鼠</div>
+                    <a href="http://pintu.caning.cc" target="_blank" class="link-btn">立即还原</a>
+                </div>
+                
+                <div class="link-item">
+                    <div class="link-title"><span>👥</span> 加入群聊</div>
+                    <div class="link-desc">与其他拼图爱好者交流分享经验，加入我们的社区</div>
+                    <a href="https://qm.qq.com/q/Dz0O262eRy" target="_blank" class="link-btn">加入群聊</a>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            © 2025 拼好图 | 祝你个个都还原大老鼠
+        </footer>
     </div>
-
-    <div class="container">
-        <h1 class="title">🌻 像素拼图工坊</h1>
-        <p class="subtitle">简单有趣的像素拼图工具</p>
-
-        <!-- 拼图生成 -->
-        <a href="http://jietu.caning.cc" class="nav-btn" target="_blank">
-            <i class="fas fa-cut"></i> 创作拼图
-        </a>
-
-        <!-- 拼图合成 -->
-        <a href="http://pintu.caning.cc" class="nav-btn" target="_blank">
-            <i class="fas fa-image"></i> 拼图查看
-        </a>
-
-        <!-- 加入交流群 -->
-        <a href="https://qm.qq.com/q/Dz0O262eRy" class="nav-btn" target="_blank">
-            <i class="fas fa-users"></i> 加入交流群
-        </a>
-    </div>
-
-    <script>
-        // 可选：点击按钮时添加轻微震动动效
-        document.querySelectorAll('.nav-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                btn.style.animation = 'bounce 0.3s ease';
-            });
-        });
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-    </script>
 </body>
 </html>
