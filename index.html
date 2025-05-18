@@ -3,245 +3,391 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>拼好图-工具</title>
+    <title>拼好图</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        :root {
-            --sky-blue: #87CEEB;
-            --light-blue: #E6F7FF;
-            --sun-yellow: #FFD700;
-            --cloud-white: #FFFFFF;
-            --shadow-color: rgba(0, 0, 0, 0.1);
-        }
-        
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, var(--sky-blue), #B0E0E6);
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            color: #333;
-            overflow-x: hidden;
-        }
-        
-        .sky-container {
-            position: relative;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 30px;
-            z-index: 1;
-        }
-        
-        .sun {
-            position: absolute;
-            top: 40px;
-            right: 60px;
-            width: 80px;
-            height: 80px;
-            background: var(--sun-yellow);
-            border-radius: 50%;
-            box-shadow: 0 0 40px 15px rgba(255, 215, 0, 0.4);
-            z-index: -1;
-            animation: float 8s ease-in-out infinite;
-        }
-        
-        .cloud {
-            position: absolute;
-            background: var(--cloud-white);
-            border-radius: 50px;
-            z-index: -1;
-            opacity: 0.9;
-            box-shadow: 0 5px 15px var(--shadow-color);
-        }
-        
-        .cloud-1 {
-            width: 120px;
-            height: 60px;
-            top: 15%;
-            left: 10%;
-            animation: float 12s ease-in-out infinite;
-        }
-        
-        .cloud-2 {
-            width: 180px;
-            height: 80px;
-            top: 25%;
-            right: 8%;
-            animation: float 15s ease-in-out infinite 2s;
-        }
-        
-        .cloud-3 {
-            width: 100px;
-            height: 50px;
-            bottom: 20%;
-            left: 15%;
-            animation: float 10s ease-in-out infinite 1s;
-        }
-        
-        .navigation-card {
-            background: rgba(255, 255, 255, 0.85);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 30px var(--shadow-color);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            margin-top: 50px;
+        /* 上传区域优化 */
+        .upload-container {
+            border: 2px dashed #4CAF50;
+            border-radius: 12px;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
-        
-        .navigation-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 10px;
-            background: linear-gradient(90deg, #4FC3F7, #4DD0E1, #4DB6AC);
-            border-radius: 20px 20px 0 0;
-        }
-        
-        h1 {
-            color: #0078D7;
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 28px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-        }
-        
-        .link-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-        
-        .link-item {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .link-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .link-item::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #4FC3F7, #4DD0E1);
-        }
-        
-        .link-title {
-            font-size: 18px;
-            font-weight: bold;
-            color: #0078D7;
-            margin-bottom: 10px;
+        .upload-label {
             display: flex;
+            flex-direction: column;
             align-items: center;
-        }
-        
-        .link-title span {
-            margin-right: 10px;
-            font-size: 24px;
-        }
-        
-        .link-desc {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 15px;
-            line-height: 1.5;
-        }
-        
-        .link-btn {
-            display: inline-block;
-            padding: 8px 15px;
-            background: linear-gradient(135deg, #4FC3F7, #4DD0E1);
-            color: white;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 14px;
-            transition: all 0.3s;
-            border: none;
+            padding: 2rem;
             cursor: pointer;
         }
-        
-        .link-btn:hover {
-            background: linear-gradient(135deg, #3FB8F5, #3DCAD9);
-            box-shadow: 0 3px 10px rgba(63, 184, 245, 0.3);
+        .upload-icon {
+            font-size: 2.5rem;
+            color: #4CAF50;
+            margin-bottom: 1rem;
         }
-        
-        .bird {
-            position: absolute;
-            font-size: 24px;
-            animation: fly 20s linear infinite;
+        .upload-hint {
+            color: #6c757d;
+            font-size: 0.9rem;
         }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0) translateX(0); }
-            50% { transform: translateY(-20px) translateX(10px); }
+        .file-info {
+            color: #4CAF50;
+            font-weight: bold;
+            margin-top: 0.5rem;
         }
-        
-        @keyframes fly {
-            0% { transform: translateX(-100px) translateY(50px); }
-            100% { transform: translateX(calc(100vw + 100px)) translateY(0); }
+
+        /* 按钮样式 */
+        .solid-btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            color: white !important;
+            transition: all 0.3s;
+            font-weight: 500;
         }
-        
-        footer {
+        .btn-green {
+            background-color: #28a745;
+        }
+        .btn-green:hover {
+            background-color: #218838;
+        }
+        .btn-red {
+            background-color: #dc3545;
+        }
+        .btn-red:hover {
+            background-color: #c82333;
+        }
+        .btn-blue {
+            background-color: #0d6efd;
+        }
+        .btn-blue:hover {
+            background-color: #0b5ed7;
+        }
+
+        /* 画布容器 */
+        #canvas-container {
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            background: repeating-conic-gradient(#f8f9fa 0% 25%, #e9ecef 0% 50%) 50%/20px 20px;
+            min-height: 300px;
+        }
+        #mainCanvas {
+            display: block;
+            max-width: 100%;
+        }
+
+        /* 打赏弹窗 */
+        .donate-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: none;
             text-align: center;
-            margin-top: 40px;
-            color: white;
-            font-size: 14px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            max-width: 90%;
+        }
+        .modal-mask {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            display: none;
+        }
+        .donate-qrcode {
+            width: 200px;
+            height: 200px;
+            margin: 15px auto;
+            display: block;
+        }
+        .thank-you-text {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
         }
     </style>
 </head>
-<body>
-    <div class="sun">☀️</div>
-    <div class="cloud cloud-1">☁️</div>
-    <div class="cloud cloud-2">☁️</div>
-    <div class="cloud cloud-3">☁️</div>
-    
-    <div class="bird">🐦</div>
-    <div class="bird" style="top: 30%; animation-delay: 5s;">🕊️</div>
-    <div class="bird" style="top: 70%; animation-delay: 8s;">🐦</div>
-    
-    <div class="sky-container">
-        <div class="navigation-card">
-            <h1>☁️ 拼好图 🌈</h1>
-            
-            <div class="link-container">
-                <div class="link-item">
-                    <div class="link-title"><span>🧩</span> 创作拼图</div>
-                    <div class="link-desc">一键生成热门的碎片图</div>
-                    <a href="http://jietu.caning.cc" target="_blank" class="link-btn">立即创作</a>
-                </div>
-                
-                <div class="link-item">
-                    <div class="link-title"><span>🐹</span> 碎片还原</div>
-                    <div class="link-desc">浏览和还原碎片图片，祝大老鼠</div>
-                    <a href="http://pintu.caning.cc" target="_blank" class="link-btn">立即还原</a>
-                </div>
-                
-                <div class="link-item">
-                    <div class="link-title"><span>👥</span> 加入群聊</div>
-                    <div class="link-desc">与其他拼图爱好者交流分享经验，加入我们的社区</div>
-                    <a href="https://qm.qq.com/q/Dz0O262eRy" target="_blank" class="link-btn">加入群聊</a>
-                </div>
+<body class="container-fluid py-4">
+    <div class="row g-4">
+        <!-- 画布区域 -->
+        <div class="col-12 col-lg-8">
+            <div id="canvas-container">
+                <canvas id="mainCanvas"></canvas>
             </div>
         </div>
         
-        <footer>
-            © 2025 拼好图 | 祝你个个都还原大老鼠
-        </footer>
+        <!-- 控制面板 -->
+        <div class="col-12 col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <!-- 文件上传 -->
+                    <div class="upload-container mb-4">
+                        <input type="file" id="fileUpload" class="d-none" multiple accept="image/*">
+                        <label for="fileUpload" class="upload-label">
+                            <i class="bi bi-cloud-arrow-up upload-icon"></i>
+                            <span class="fw-bold">点击或拖放文件上传</span>
+                            <span class="upload-hint">支持JPEG/PNG格式</span>
+                            <span class="file-info" id="fileInfo"></span>
+                        </label>
+                    </div>
+
+                    <!-- 混合模式选择 -->
+                    <div class="mb-3">
+                        <label class="form-label">混合模式：</label>
+                        <select id="blendMode" class="form-select">
+                            <option value="multiply" selected>正片叠底</option>
+                            <option value="exclusion">排除</option>
+                            <option value="screen">滤色</option>
+                            <option value="overlay">叠加</option>
+                        </select>
+                    </div>
+
+                    <!-- 功能按钮 -->
+                    <button class="solid-btn btn-blue w-100 mb-3" onclick="toggleInvert()">
+                        反差色模式
+                    </button>
+                    
+                    <button class="solid-btn btn-blue w-100 mb-3" onclick="exportImage()">
+                        下载图片
+                    </button>
+
+                    <!-- 社交按钮行 -->
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <button class="solid-btn btn-green w-100" onclick="joinGroup()">
+                               👨‍👨‍👧 加入群聊
+                            </button>
+                        </div>
+                        <div class="col-6">
+                            <button class="solid-btn btn-red w-100" onclick="showDonate()">
+                                🐭更多老鼠
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <!-- 打赏弹窗 -->
+    <div class="modal-mask" id="mask"></div>
+    <div class="donate-modal" id="donateBox">
+        <h4>爱你宝子</h4>
+        <p class="thank-you-text">留言QQ并加入群聊后，这边会安排人主动联系你</p>
+        <img src="https://pic1.imgdb.cn/item/682972f358cb8da5c8fa3b5f.jpg" 
+             alt="打赏二维码" 
+             class="donate-qrcode">
+        <button class="btn btn-primary" onclick="closeDonate()">关闭</button>
+    </div>
+
+<script>
+// 核心处理模块
+const canvas = document.getElementById('mainCanvas');
+const ctx = canvas.getContext('2d');
+const fileInput = document.getElementById('fileUpload');
+const fileInfo = document.getElementById('fileInfo');
+let imageStack = [];
+let originalPixels = null;
+let currentPixels = null;
+let isInverted = false;
+
+// 初始化画布
+function initCanvas() {
+    const container = document.getElementById('canvas-container');
+    canvas.width = container.clientWidth;
+    canvas.height = container.clientHeight;
+    
+    ctx.fillStyle = '#FFF';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+// 图像加载处理
+async function loadImages(files) {
+    const loadedImages = [];
+    
+    for (const file of files) {
+        try {
+            const img = await new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => resolve(img);
+                img.onerror = () => reject();
+                img.src = URL.createObjectURL(file);
+            });
+            
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = img.width;
+            tempCanvas.height = img.height;
+            tempCanvas.getContext('2d').drawImage(img, 0, 0);
+            
+            loadedImages.push(tempCanvas);
+            fileInfo.textContent = `${files.length}个文件已选择`;
+        } catch {
+            fileInfo.innerHTML = `<span style="color:red">${file.name}加载失败</span>`;
+        }
+    }
+    
+    return loadedImages;
+}
+
+// 图像合成
+function compositeImages() {
+    if (imageStack.length === 0) return;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#FFF';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    const firstImage = imageStack[0];
+    const scale = Math.min(
+        canvas.width / firstImage.width,
+        canvas.height / firstImage.height
+    );
+    
+    imageStack.forEach((img, index) => {
+        ctx.globalCompositeOperation = index === 0 ? 'source-over' 
+            : document.getElementById('blendMode').value;
+        
+        const x = (canvas.width - img.width * scale) / 2;
+        const y = (canvas.height - img.height * scale) / 2;
+        
+        ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
+    });
+    
+    originalPixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    currentPixels = originalPixels;
+    isInverted = false; // 重置反差色状态
+}
+
+// 反差色处理（修复版）
+function toggleInvert() {
+    if (!originalPixels) {
+        alert('请先上传图片');
+        return;
+    }
+    
+    // 创建新的ImageData对象
+    const imageData = ctx.createImageData(canvas.width, canvas.height);
+    const data = imageData.data;
+    const originalData = originalPixels.data;
+    
+    if (!isInverted) {
+        // 应用反差色
+        for (let i = 0; i < data.length; i += 4) {
+            data[i] = 255 - originalData[i];     // R
+            data[i+1] = 255 - originalData[i+1]; // G
+            data[i+2] = 255 - originalData[i+2]; // B
+            data[i+3] = originalData[i+3];      // Alpha
+        }
+    } else {
+        // 恢复原始图像
+        for (let i = 0; i < data.length; i++) {
+            data[i] = originalData[i];
+        }
+    }
+    
+    // 应用处理后的图像
+    ctx.putImageData(imageData, 0, 0);
+    currentPixels = imageData;
+    isInverted = !isInverted;
+}
+
+// 图片导出（修复版）
+function exportImage() {
+    if (!currentPixels) {
+        alert('请先上传图片');
+        return;
+    }
+    
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = canvas.width;
+    tempCanvas.height = canvas.height;
+    
+    const tempCtx = tempCanvas.getContext('2d');
+    tempCtx.putImageData(currentPixels, 0, 0);
+    
+    tempCanvas.toBlob(blob => {
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `processed_${Date.now()}.png`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(a.href), 100);
+    }, 'image/png', 0.92);
+}
+
+// 文件选择处理
+async function handleFileSelect() {
+    if(!fileInput.files || fileInput.files.length === 0) return;
+    
+    imageStack = await loadImages(Array.from(fileInput.files));
+    if(imageStack.length > 0) {
+        compositeImages();
+    }
+}
+
+// 拖拽上传
+const uploadContainer = document.querySelector('.upload-container');
+
+uploadContainer.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    uploadContainer.style.borderColor = '#45a049';
+    uploadContainer.style.background = 'rgba(76, 175, 80, 0.1)';
+});
+
+uploadContainer.addEventListener('dragleave', () => {
+    uploadContainer.style.borderColor = '#4CAF50';
+    uploadContainer.style.background = '#f8f9fa';
+});
+
+uploadContainer.addEventListener('drop', (e) => {
+    e.preventDefault();
+    uploadContainer.style.borderColor = '#4CAF50';
+    uploadContainer.style.background = '#f8f9fa';
+    
+    if(e.dataTransfer.files.length > 0) {
+        fileInput.files = e.dataTransfer.files;
+        handleFileSelect();
+    }
+});
+
+// 事件监听
+fileInput.addEventListener('change', handleFileSelect);
+document.getElementById('blendMode').addEventListener('change', () => {
+    if(imageStack.length > 0) compositeImages();
+});
+
+// 社交功能
+function joinGroup() {
+    window.open('https://qm.qq.com/q/Dz0O262eRy', '_blank');
+}
+
+function showDonate() {
+    document.getElementById('mask').style.display = 'block';
+    document.getElementById('donateBox').style.display = 'block';
+}
+
+function closeDonate() {
+    document.getElementById('mask').style.display = 'none';
+    document.getElementById('donateBox').style.display = 'none';
+}
+
+// 初始化
+window.addEventListener('load', initCanvas);
+window.addEventListener('resize', () => {
+    initCanvas();
+    if(imageStack.length > 0) {
+        compositeImages();
+    }
+});
+</script>
 </body>
 </html>
