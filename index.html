@@ -3,245 +3,258 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>拼好图-工具</title>
+    <title>实用工具导航</title>
     <style>
         :root {
-            --sky-blue: #87CEEB;
-            --light-blue: #E6F7FF;
-            --sun-yellow: #FFD700;
-            --cloud-white: #FFFFFF;
-            --shadow-color: rgba(0, 0, 0, 0.1);
+            --primary: #4a6fa5;
+            --primary-light: #6b8cbc;
+            --text: #333;
+            --text-light: #666;
+            --bg: #f8f9fa;
+            --card: #fff;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
         
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, var(--sky-blue), #B0E0E6);
-            margin: 0;
-            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            padding: 16px;
             min-height: 100vh;
-            color: #333;
-            overflow-x: hidden;
-        }
-        
-        .sky-container {
-            position: relative;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 30px;
-            z-index: 1;
-        }
-        
-        .sun {
-            position: absolute;
-            top: 40px;
-            right: 60px;
-            width: 80px;
-            height: 80px;
-            background: var(--sun-yellow);
-            border-radius: 50%;
-            box-shadow: 0 0 40px 15px rgba(255, 215, 0, 0.4);
-            z-index: -1;
-            animation: float 8s ease-in-out infinite;
-        }
-        
-        .cloud {
-            position: absolute;
-            background: var(--cloud-white);
-            border-radius: 50px;
-            z-index: -1;
-            opacity: 0.9;
-            box-shadow: 0 5px 15px var(--shadow-color);
-        }
-        
-        .cloud-1 {
-            width: 120px;
-            height: 60px;
-            top: 15%;
-            left: 10%;
-            animation: float 12s ease-in-out infinite;
-        }
-        
-        .cloud-2 {
-            width: 180px;
-            height: 80px;
-            top: 25%;
-            right: 8%;
-            animation: float 15s ease-in-out infinite 2s;
-        }
-        
-        .cloud-3 {
-            width: 100px;
-            height: 50px;
-            bottom: 20%;
-            left: 15%;
-            animation: float 10s ease-in-out infinite 1s;
-        }
-        
-        .navigation-card {
-            background: rgba(255, 255, 255, 0.85);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 30px var(--shadow-color);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            margin-top: 50px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .navigation-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 10px;
-            background: linear-gradient(90deg, #4FC3F7, #4DD0E1, #4DB6AC);
-            border-radius: 20px 20px 0 0;
-        }
-        
-        h1 {
-            color: #0078D7;
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 28px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-        }
-        
-        .link-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-        
-        .link-item {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .link-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .link-item::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #4FC3F7, #4DD0E1);
-        }
-        
-        .link-title {
-            font-size: 18px;
-            font-weight: bold;
-            color: #0078D7;
-            margin-bottom: 10px;
             display: flex;
+            flex-direction: column;
             align-items: center;
         }
         
-        .link-title span {
-            margin-right: 10px;
-            font-size: 24px;
+        .container {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0;
         }
         
-        .link-desc {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 15px;
-            line-height: 1.5;
-        }
-        
-        .link-btn {
-            display: inline-block;
-            padding: 8px 15px;
-            background: linear-gradient(135deg, #4FC3F7, #4DD0E1);
-            color: white;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 14px;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .link-btn:hover {
-            background: linear-gradient(135deg, #3FB8F5, #3DCAD9);
-            box-shadow: 0 3px 10px rgba(63, 184, 245, 0.3);
-        }
-        
-        .bird {
-            position: absolute;
-            font-size: 24px;
-            animation: fly 20s linear infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0) translateX(0); }
-            50% { transform: translateY(-20px) translateX(10px); }
-        }
-        
-        @keyframes fly {
-            0% { transform: translateX(-100px) translateY(50px); }
-            100% { transform: translateX(calc(100vw + 100px)) translateY(0); }
-        }
-        
-        footer {
+        header {
             text-align: center;
-            margin-top: 40px;
-            color: white;
-            font-size: 14px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            margin-bottom: 24px;
+            padding: 0 12px;
+        }
+        
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+        
+        .subtitle {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        .button-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .nav-card {
+            background-color: var(--card);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text);
+            box-shadow: var(--shadow);
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .nav-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-card .icon {
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+        }
+        
+        .nav-card .title {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        
+        .nav-card .desc {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+        
+        /* 手机优化模态框 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            padding: 16px;
+        }
+        
+        .modal.show {
+            opacity: 1;
+            display: flex;
+        }
+        
+        .modal-content {
+            background-color: var(--card);
+            border-radius: 12px;
+            width: 100%;
+            max-width: 300px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            font-size: 1.2rem;
+            color: var(--text-light);
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px;
+        }
+        
+        .modal-title {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 12px;
+            padding-right: 20px;
+            padding-left: 20px;
+        }
+        
+        .modal-text {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
+        
+        .donation-img {
+            width: 100%;
+            max-width: 220px;
+            height: auto;
+            border-radius: 6px;
+            margin: 0 auto 12px;
+            display: block;
+        }
+        
+        /* 防止iOS缩放 */
+        @supports (-webkit-touch-callout: none) {
+            input, textarea {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="sun">☀️</div>
-    <div class="cloud cloud-1">☁️</div>
-    <div class="cloud cloud-2">☁️</div>
-    <div class="cloud cloud-3">☁️</div>
-    
-    <div class="bird">🐦</div>
-    <div class="bird" style="top: 30%; animation-delay: 5s;">🕊️</div>
-    <div class="bird" style="top: 70%; animation-delay: 8s;">🐦</div>
-    
-    <div class="sky-container">
-        <div class="navigation-card">
-            <h1>☁️ 拼好图 🌈</h1>
-            
-            <div class="link-container">
-                <div class="link-item">
-                    <div class="link-title"><span>🧩</span> 创作拼图</div>
-                    <div class="link-desc">一键生成热门的碎片图</div>
-                    <a href="http://jietu.caning.cc" target="_blank" class="link-btn">立即创作</a>
-                </div>
-                
-                <div class="link-item">
-                    <div class="link-title"><span>🐹</span> 碎片还原</div>
-                    <div class="link-desc">浏览和还原碎片图片，祝大老鼠</div>
-                    <a href="http://pintu.caning.cc" target="_blank" class="link-btn">立即还原</a>
-                </div>
-                
-                <div class="link-item">
-                    <div class="link-title"><span>👥</span> 加入群聊</div>
-                    <div class="link-desc">与其他拼图爱好者交流分享经验，加入我们的社区</div>
-                    <a href="https://qm.qq.com/q/Dz0O262eRy" target="_blank" class="link-btn">加入群聊</a>
-                </div>
-            </div>
-        </div>
+    <div class="container">
+        <header>
+            <h1>实用工具导航</h1>
+            <p class="subtitle">精选工具，提升效率</p>
+        </header>
         
-        <footer>
-            © 2025 拼好图 | 祝你个个都还原大老鼠
-        </footer>
+        <div class="button-grid">
+            <a href="http://jietu.caning.cc" class="nav-card">
+                <span class="icon">🎨</span>
+                <span class="title">创作拼图</span>
+                <span class="desc">轻松制作精美拼图</span>
+            </a>
+            
+            <a href="http://caning.cc" class="nav-card">
+                <span class="icon">🧩</span>
+                <span class="title">拼好图</span>
+                <span class="desc">查看已完成的拼图作品</span>
+            </a>
+            
+            <button id="donateBtn" class="nav-card">
+                <span class="icon">❤️</span>
+                <span class="title">支持一下</span>
+                <span class="desc">支持作者的工具可进群</span>
+            </button>
+            
+            <a href="https://qm.qq.com/q/dpAcY7jF6g" class="nav-card">
+                <span class="icon">💬</span>
+                <span class="title">加入群聊</span>
+                <span class="desc">与社区成员交流</span>
+            </a>
+        </div>
     </div>
+
+    <!-- 手机优化赞赏弹窗 -->
+    <div id="donateModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn">&times;</button>
+            <h3 class="modal-title">自愿赞赏</h3>
+            <p class="modal-text">群人数即将上限，筛选进入的人群。</p>
+            <img src="https://pic1.imgdb.cn/item/682972f358cb8da5c8fa3b5f.jpg" alt="赞赏二维码" class="donation-img">
+            <p class="modal-text">感谢宝子的理解和支持~</p>
+        </div>
+    </div>
+
+    <script>
+        // 更流畅的模态框控制
+        const modal = document.getElementById("donateModal");
+        const btn = document.getElementById("donateBtn");
+        const closeBtn = document.querySelector(".close-btn");
+        
+        // 点击按钮打开弹窗
+        btn.addEventListener('click', function() {
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        // 点击关闭按钮关闭弹窗
+        closeBtn.addEventListener('click', function() {
+            modal.classList.remove('show');
+            document.body.style.overflow = '';
+        });
+        
+        // 点击弹窗外部关闭弹窗
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // 防止iOS缩放
+        document.addEventListener('gesturestart', function(e) {
+            e.preventDefault();
+        });
+    </script>
 </body>
 </html>
