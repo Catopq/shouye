@@ -3,258 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>拼好图</title>
+    <title>工具导航</title>
     <style>
-        :root {
-            --primary: #4a6fa5;
-            --primary-light: #6b8cbc;
-            --text: #333;
-            --text-light: #666;
-            --bg: #f8f9fa;
-            --card: #fff;
-            --shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        * {margin: 0;padding: 0;box-sizing: border-box;font-family: -apple-system, sans-serif;}
+        body {background: #f0f2f5;padding: 20px;}
+        .container {max-width: 500px;margin: 0 auto;}
+        .btn-group {display: flex;flex-direction: column;gap: 12px;}
+        .tool-btn {
+            display: flex;align-items: center;justify-content: center;
+            padding: 16px 0;background: #fff;border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);text-decoration: none;
+            color: #333;font-size: 16px;font-weight: 500;
         }
-        
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.5;
-            padding: 16px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .container {
-            width: 100%;
-            max-width: 100%;
-            margin: 0 auto;
-            padding: 0;
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 24px;
-            padding: 0 12px;
-        }
-        
-        h1 {
-            font-size: 1.5rem;
-            font-weight: 500;
-            margin-bottom: 8px;
-            color: var(--primary);
-        }
-        
-        .subtitle {
-            font-size: 0.9rem;
-            color: var(--text-light);
-        }
-        
-        .button-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-            width: 100%;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-        
-        .nav-card {
-            background-color: var(--card);
-            border-radius: 8px;
-            padding: 16px;
-            text-align: center;
-            text-decoration: none;
-            color: var(--text);
-            box-shadow: var(--shadow);
-            transition: all 0.2s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .nav-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-        
-        .nav-card .icon {
-            font-size: 1.6rem;
-            margin-bottom: 8px;
-        }
-        
-        .nav-card .title {
-            font-size: 1rem;
-            font-weight: 500;
-            margin-bottom: 4px;
-        }
-        
-        .nav-card .desc {
-            font-size: 0.8rem;
-            color: var(--text-light);
-        }
-        
-        /* 手机优化模态框 */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            z-index: 100;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.2s ease;
-            padding: 16px;
-        }
-        
-        .modal.show {
-            opacity: 1;
-            display: flex;
-        }
-        
-        .modal-content {
-            background-color: var(--card);
-            border-radius: 12px;
-            width: 100%;
-            max-width: 300px;
-            padding: 20px;
-            text-align: center;
-            position: relative;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-        
-        .close-btn {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            font-size: 1.2rem;
-            color: var(--text-light);
-            cursor: pointer;
-            background: none;
-            border: none;
-            padding: 4px;
-        }
-        
-        .modal-title {
-            font-size: 1.1rem;
-            color: var(--primary);
-            margin-bottom: 12px;
-            padding-right: 20px;
-            padding-left: 20px;
-        }
-        
-        .modal-text {
-            font-size: 0.9rem;
-            color: var(--text-light);
-            margin-bottom: 16px;
-            line-height: 1.4;
-        }
-        
-        .donation-img {
-            width: 100%;
-            max-width: 220px;
-            height: auto;
-            border-radius: 6px;
-            margin: 0 auto 12px;
-            display: block;
-        }
-        
-        /* 防止iOS缩放 */
-        @supports (-webkit-touch-callout: none) {
-            input, textarea {
-                font-size: 16px;
-            }
-        }
+        .tool-btn i {margin-right: 10px;font-size: 20px;}
+        .group-btn {background: #722ed1;color: white;}
+        .footer {margin-top: 30px;text-align: center;font-size: 12px;color: #999;}
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>实用工具导航</h1>
-            <p class="subtitle">精选工具，提升效率</p>
-        </header>
-        
-        <div class="button-grid">
-            <a href="http://jietu.caning.cc" class="nav-card">
-                <span class="icon">🎨</span>
-                <span class="title">创作拼图</span>
-                <span class="desc">轻松制作精美拼图</span>
+        <div class="btn-group">
+            <a href="http://jietu.caning.cc" class="tool-btn">
+                <i>📎</i> 拆图工具
             </a>
-            
-            <a href="http://pintu.caning.cc" class="nav-card">
-                <span class="icon">🧩</span>
-                <span class="title">拼好图</span>
-                <span class="desc">拼碎片工具一键生成！</span>
+            <a href="http://pintu.caning.cc" class="tool-btn">
+                <i>🎨</i> 拼图工具（支持正片叠底/排除）
             </a>
-            
-            <button id="donateBtn" class="nav-card">
-                <span class="icon">🐭</span>
-                <span class="title">更多老鼠</span>
-                <span class="desc">一键查看老鼠合集免拼</span>
-            </button>
-            
-            <a href="https://qun.qq.com/universal-share/share?ac=1&authKey=WFtvWSTL%2BlWoQsxlkEIwwYT3vJo8BLtB%2BWptJ8uHrWKJBEPcS%2BYASiojRFaWShf4&busi_data=eyJncm91cENvZGUiOiI5MDU5NjAyNTQiLCJ0b2tlbiI6Im9tbTd5M0FPeHlSSEk1dUd3WlBvVVNkUjdYMVVwYlNIWTBLNzdWbTB0WmVncTY5amM4U2xHMzdKbXhzQ1JDUkIiLCJ1aW4iOiIzMTU2MzM2MTE4In0%3D&data=SLdOT3oRH2S3MZumID0pvkk11VHPLNoh4odpzyad2tWSq_uke6-iul9EueqRERgmlAbai0HSKrCEZaTR32FhYg&svctype=4&tempid=h5_group_info" class="nav-card">
-                <span class="icon">💬</span>
-                <span class="title">加入群聊</span>
-                <span class="desc">与社区成员交流</span>
+            <a href="http://jmjm.caning.cc" class="tool-btn">
+                <i>🔒</i> 加解密工具（需原图）
+            </a>
+            <a href="https://qun.qq.com/universal-share/share?ac=1&authKey=WFtvWSTL%2BlWoQsxlkEIwwYT3vJo8BLtB%2BWptJ8uHrWKJBEPcS%2BYASiojRFaWShf4&busi_data=eyJncm91cENvZGUiOiI5MDU5NjAyNTQiLCJ0b2tlbiI6Im9tbTd5M0FPeHlSSEk1dUd3WlBvVVNkUjdYMVVwYlNIWTBLNzdWbTB0WmVncTY5amM4U2xHMzdKbXhzQ1JDUkIiLCJ1aW4iOiIzMTU2MzM2MTE4In0%3D&data=SLdOT3oRH2S3MZumID0pvkk11VHPLNoh4odpzyad2tWSq_uke6-iul9EueqRERgmlAbai0HSKrCEZaTR32FhYg&svctype=4&tempid=h5_group_info" class="tool-btn group-btn">
+                <i>👥</i> 加入群聊（905960254）
             </a>
         </div>
-    </div>
-
-    <!-- 手机优化赞赏弹窗 -->
-    <div id="donateModal" class="modal">
-        <div class="modal-content">
-            <button class="close-btn">&times;</button>
-            <h3 class="modal-title">自愿赞赏</h3>
-            <p class="modal-text">赞赏请留言QQ，再加入群聊</p>
-            <img src="https://pic1.imgdb.cn/item/682972f358cb8da5c8fa3b5f.jpg" alt="赞赏二维码" class="donation-img">
-            <p class="modal-text">感谢宝子的理解和支持~</p>
+        <div class="footer">
+            <p>点击图标快速跳转工具 · 建议保存到手机桌面</p>
         </div>
     </div>
-
-    <script>
-        // 更流畅的模态框控制
-        const modal = document.getElementById("donateModal");
-        const btn = document.getElementById("donateBtn");
-        const closeBtn = document.querySelector(".close-btn");
-        
-        // 点击按钮打开弹窗
-        btn.addEventListener('click', function() {
-            modal.classList.add('show');
-            document.body.style.overflow = 'hidden';
-        });
-        
-        // 点击关闭按钮关闭弹窗
-        closeBtn.addEventListener('click', function() {
-            modal.classList.remove('show');
-            document.body.style.overflow = '';
-        });
-        
-        // 点击弹窗外部关闭弹窗
-        window.addEventListener('click', function(event) {
-            if (event.target === modal) {
-                modal.classList.remove('show');
-                document.body.style.overflow = '';
-            }
-        });
-        
-        // 防止iOS缩放
-        document.addEventListener('gesturestart', function(e) {
-            e.preventDefault();
-        });
-    </script>
 </body>
 </html>
