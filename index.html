@@ -1,198 +1,136 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>I love U</title>
+    <title>专业交流社区 | QQ群组</title>
     <style>
-        body {
+        * {
             margin: 0;
             padding: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #fff5f7;
-            overflow: hidden;
-            font-family: 'Arial', sans-serif;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
         }
-        
-        .message {
+        body {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            line-height: 1.6;
+            padding: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background-color: #252525;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        header {
             text-align: center;
-            color: #333;
-            z-index: 10;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.7);
-            border-radius: 10px;
-            max-width: 80%;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
         }
-        
         h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            color: #ffffff;
+            font-size: 28px;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
         }
-        
-        p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin: 8px 0;
+        .description {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #b0b0b0;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 16px;
         }
-        
-        .sakura {
-            position: absolute;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill="%23ffb7c5" d="M10 0 Q 12.5 5 20 10 Q 12.5 15 10 20 Q 7.5 15 0 10 Q 7.5 5 10 0"/></svg>');
-            background-size: contain;
-            background-repeat: no-repeat;
-            pointer-events: none;
-            z-index: 1;
+        .join-link {
+            display: inline-block;
+            text-align: center;
+            background-color: #0078d4;
+            color: white;
+            padding: 14px 30px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
         }
-        
-        @keyframes falling {
-            0% {
-                transform: translate(0, -10vh) rotate(0deg);
-                opacity: 0;
+        .join-link:hover {
+            background-color: #005a9e;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 120, 212, 0.3);
+        }
+        .group-info {
+            background-color: #2d2d2d;
+            padding: 24px;
+            border-radius: 6px;
+            border-left: 4px solid #0078d4;
+            margin-bottom: 30px;
+        }
+        .group-info h3 {
+            margin-bottom: 12px;
+            color: #ffffff;
+            font-size: 18px;
+        }
+        .group-info p {
+            margin-bottom: 10px;
+            color: #b0b0b0;
+            font-size: 15px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+            font-size: 14px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+                margin: 20px auto;
             }
-            10% {
-                opacity: 1;
+            h1 {
+                font-size: 24px;
             }
-            90% {
-                opacity: 1;
+            .description {
+                font-size: 15px;
             }
-            100% {
-                transform: translate(var(--end-x), 100vh) rotate(360deg);
-                opacity: 0;
+            .join-link {
+                padding: 12px 24px;
+                font-size: 15px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="message">
-        <h1 id="greeting">ALL THE BEST</h1>
-        <p id="current-time">Time:--:--:--</p>
-        <p id="festival-countdown">距离: -- 天</p>
-    </div>
+    <div class="container">
+        <header>
+            <h1>专业交流社区</h1>
+            <p class="description">加入我们的QQ群组，与行业精英交流经验、分享见解、共同成长。我们致力于打造一个高质量、专业化的交流平台。</p>
+        </header>
 
-    <script>
-        // 创建樱花花瓣 - 加快掉落速度
-        function createSakura() {
-            const sakura = document.createElement('div');
-            sakura.className = 'sakura';
-            
-            // 随机大小
-            const size = Math.random() * 12 + 8; // 稍微小一点的花瓣
-            sakura.style.width = `${size}px`;
-            sakura.style.height = `${size}px`;
-            
-            // 随机起始位置
-            const startX = Math.random() * window.innerWidth;
-            sakura.style.left = `${startX}px`;
-            sakura.style.top = `-${size}px`;
-            
-            // 更快的动画参数 - 减少持续时间
-            const duration = Math.random() * 5 + 3; // 3-8秒，比原来快
-            const delay = Math.random() * 2; // 减少初始延迟
-            const endX = (Math.random() - 0.5) * 80; // 减少水平移动范围
-            
-            sakura.style.setProperty('--end-x', `${endX}px`);
-            sakura.style.animation = `falling ${duration}s linear ${delay}s infinite`;
-            
-            document.body.appendChild(sakura);
-            
-            // 动画结束后移除
-            setTimeout(() => {
-                sakura.remove();
-            }, (duration + delay) * 1000);
-        }
-        
-        // 初始创建一些花瓣 - 更密集
-        for (let i = 0; i < 50; i++) {
-            setTimeout(createSakura, i * 100); // 更快的初始创建
-        }
-        
-        // 持续创建新花瓣 - 更频繁
-        setInterval(createSakura, 200); // 更频繁地创建花瓣
-        
-        // 节日数据 - 中国传统节日(月份从0开始，即0=1月)
-        const festivals = [
-            { name: "春节", month: 0, day: 22 }, // 1月22日(示例日期，实际应根据农历计算)
-            { name: "元宵节", month: 1, day: 5 }, // 2月5日
-            { name: "清明节", month: 3, day: 4 }, // 4月4日
-            { name: "端午节", month: 4, day: 10 }, // 5月10日
-            { name: "七夕节", month: 6, day: 22 }, // 7月22日
-            { name: "中秋节", month: 7, day: 29 }, // 8月29日
-            { name: "重阳节", month: 8, day: 14 }  // 9月14日
-        ];
-        
-        // 获取当前日期
-        function getCurrentDate() {
-            const now = new Date();
-            return {
-                year: now.getFullYear(),
-                month: now.getMonth(), // 0-11
-                day: now.getDate(),
-                hours: now.getHours(),
-                minutes: now.getMinutes(),
-                seconds: now.getSeconds()
-            };
-        }
-        
-        // 计算距离下一个节日的天数
-        function calculateDaysToNextFestival() {
-            const currentDate = getCurrentDate();
-            let nextFestival = null;
-            let minDays = Infinity;
-            
-            // 检查今年的所有节日
-            for (const festival of festivals) {
-                // 创建今年节日的日期对象
-                let festivalDate = new Date(currentDate.year, festival.month, festival.day);
-                
-                // 如果今年的节日已经过去，计算到明年的节日
-                if (festivalDate < new Date(currentDate.year, currentDate.month, currentDate.day)) {
-                    festivalDate = new Date(currentDate.year + 1, festival.month, festival.day);
-                }
-                
-                // 计算天数差
-                const diffTime = festivalDate - new Date(currentDate.year, currentDate.month, currentDate.day);
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                
-                // 更新最近的节日
-                if (diffDays < minDays) {
-                    minDays = diffDays;
-                    nextFestival = festival;
-                }
-            }
-            
-            return { days: minDays, festival: nextFestival };
-        }
-        
-        // 更新时间和节日倒计时
-        function updateTimeAndCountdown() {
-            const currentDate = getCurrentDate();
-            
-            // 更新时间显示
-            const timeString = `${String(currentDate.hours).padStart(2, '0')}:${String(currentDate.minutes).padStart(2, '0')}:${String(currentDate.seconds).padStart(2, '0')}`;
-            document.getElementById('current-time').textContent = `Time: ${timeString}`;
-            
-            // 计算并更新节日倒计时
-            const { days, festival } = calculateDaysToNextFestival();
-            document.getElementById('festival-countdown').textContent = `距离(${festival.name})还有: ${days} 天`;
-        }
-        
-        // 页面加载时立即显示樱花
-        window.onload = function() {
-            // 初始创建一批花瓣
-            for (let i = 0; i < 30; i++) {
-                setTimeout(createSakura, i * 50);
-            }
-            
-            // 立即更新时间
-            updateTimeAndCountdown();
-            
-            // 每秒更新时间
-            setInterval(updateTimeAndCountdown, 1000);
-        };
-    </script>
+        <a href="https://qun.qq.com/universal-share/share?ac=1&authKey=yMIxWOCTW3WaYuXkygVPu%2BMxZPK5e20xmT3oiSKhebDYPqMkVCBFu%2BT5fcIXo6wA&busi_data=eyJncm91cENvZGUiOiI5NTg5MjcxMTgiLCJ0b2tlbiI6IjU4RGdkc1Q0RFJPc1g5T3dtdytUMlZKZXNueGhZRHBMZy9qRGMwZGJ6SGJNbVZFQlNpdERJb2hubUJKVWVoWTQiLCJ1aW4iOiIyMzAzNTMzNCJ9&data=qbqXNZvort-t1HwFNxiS3G7at7ln11QhqaCHAKlhLOwlTDpEUpBmZ7PBh7jOZVta1xHQLiy0S61z1vDzuAGBdw&svctype=4&tempid=h5_group_info" class="join-link" target="_blank">
+            立即加入QQ交流群
+        </a>
+
+        <div class="group-info">
+            <h3>群组详情</h3>
+            <p><strong>群号：</strong>958927118</p>
+            <p><strong>群类型：</strong>专业交流社区</p>
+            <p><strong>群宗旨：</strong>为专业人士提供一个高质量的交流平台，分享行业见解，讨论专业话题，促进共同成长。</p>
+            <p><strong>适合人群：</strong>行业从业者、专业人士、研究者及对该领域感兴趣的人士</p>
+        </div>
+
+        <footer>
+            <p>© 2023 专业交流社区 | 加入我们，拓展您的专业网络</p>
+        </footer>
+    </div>
 </body>
 </html>
