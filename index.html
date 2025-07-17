@@ -3,134 +3,269 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>专业交流社区 | QQ群组</title>
+    <title>空调遥控板模拟器</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
-        }
         body {
-            background-color: #1a1a1a;
-            color: #e0e0e0;
-            line-height: 1.6;
-            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
         }
-        .container {
-            max-width: 900px;
-            margin: 40px auto;
-            background-color: #252525;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        }
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-            border-bottom: 1px solid #333;
-            padding-bottom: 20px;
-        }
-        h1 {
-            color: #ffffff;
-            font-size: 28px;
-            margin-bottom: 12px;
-            letter-spacing: 0.5px;
-        }
-        .description {
-            text-align: center;
+        
+        .air-conditioner {
+            width: 300px;
+            height: 150px;
+            background-color: white;
+            border-radius: 15px;
             margin-bottom: 30px;
-            color: #b0b0b0;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            font-size: 16px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
         }
-        .join-link {
-            display: inline-block;
-            text-align: center;
-            background-color: #0078d4;
-            color: white;
-            padding: 14px 30px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 16px;
-            margin-bottom: 30px;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-        .join-link:hover {
-            background-color: #005a9e;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 120, 212, 0.3);
-        }
-        .group-info {
-            background-color: #2d2d2d;
-            padding: 24px;
-            border-radius: 6px;
-            border-left: 4px solid #0078d4;
-            margin-bottom: 30px;
-        }
-        .group-info h3 {
-            margin-bottom: 12px;
-            color: #ffffff;
-            font-size: 18px;
-        }
-        .group-info p {
+        
+        .ac-display {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
             margin-bottom: 10px;
-            color: #b0b0b0;
-            font-size: 15px;
         }
-        footer {
+        
+        .ac-vents {
+            display: flex;
+            width: 80%;
+            justify-content: space-around;
+        }
+        
+        .vent {
+            width: 40px;
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+        }
+        
+        .remote {
+            background-color: #333;
+            border-radius: 20px;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .remote-display {
+            background-color: #222;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
             text-align: center;
-            margin-top: 40px;
-            color: #666;
-            font-size: 14px;
-            padding-top: 20px;
-            border-top: 1px solid #333;
+            height: 20px;
         }
-        @media (max-width: 768px) {
-            .container {
-                padding: 30px 20px;
-                margin: 20px auto;
-            }
-            h1 {
-                font-size: 24px;
-            }
-            .description {
-                font-size: 15px;
-            }
-            .join-link {
-                padding: 12px 24px;
-                font-size: 15px;
-            }
+        
+        .remote-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        
+        button {
+            background-color: #444;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+        }
+        
+        button:hover {
+            background-color: #555;
+        }
+        
+        button:active {
+            transform: scale(0.95);
+            background-color: #666;
+        }
+        
+        .power-btn {
+            background-color: #d00;
+        }
+        
+        .power-btn.on {
+            background-color: #0a0;
+        }
+        
+        .mode-btn {
+            background-color: #06c;
+        }
+        
+        .temp-display {
+            font-size: 28px;
+            font-weight: bold;
+        }
+        
+        .air-flow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(173, 216, 230, 0.3), transparent);
+            transform-origin: top center;
+            transform: translateX(-50%) scaleY(0);
+            transition: transform 0.3s ease;
+            z-index: -1;
+        }
+        
+        .ac-on .air-flow {
+            transform: translateX(-50%) scaleY(1);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>专业交流社区</h1>
-            <p class="description">加入我们的QQ群组，与行业精英交流经验、分享见解、共同成长。我们致力于打造一个高质量、专业化的交流平台。</p>
-        </header>
-
-        <a href="https://qun.qq.com/universal-share/share?ac=1&authKey=yMIxWOCTW3WaYuXkygVPu%2BMxZPK5e20xmT3oiSKhebDYPqMkVCBFu%2BT5fcIXo6wA&busi_data=eyJncm91cENvZGUiOiI5NTg5MjcxMTgiLCJ0b2tlbiI6IjU4RGdkc1Q0RFJPc1g5T3dtdytUMlZKZXNueGhZRHBMZy9qRGMwZGJ6SGJNbVZFQlNpdERJb2hubUJKVWVoWTQiLCJ1aW4iOiIyMzAzNTMzNCJ9&data=qbqXNZvort-t1HwFNxiS3G7at7ln11QhqaCHAKlhLOwlTDpEUpBmZ7PBh7jOZVta1xHQLiy0S61z1vDzuAGBdw&svctype=4&tempid=h5_group_info" class="join-link" target="_blank">
-            立即加入QQ交流群
-        </a>
-
-        <div class="group-info">
-            <h3>群组详情</h3>
-            <p><strong>群号：</strong>958927118</p>
-            <p><strong>群类型：</strong>专业交流社区</p>
-            <p><strong>群宗旨：</strong>为专业人士提供一个高质量的交流平台，分享行业见解，讨论专业话题，促进共同成长。</p>
-            <p><strong>适合人群：</strong>行业从业者、专业人士、研究者及对该领域感兴趣的人士</p>
+    <h1>空调遥控板模拟器</h1>
+    
+    <div class="air-conditioner" id="ac-unit">
+        <div class="air-flow" id="air-flow"></div>
+        <div class="ac-display" id="ac-display">关闭</div>
+        <div class="ac-vents">
+            <div class="vent"></div>
+            <div class="vent"></div>
+            <div class="vent"></div>
         </div>
-
-        <footer>
-            <p>© 2023 专业交流社区 | 加入我们，拓展您的专业网络</p>
-        </footer>
     </div>
+    
+    <div class="remote">
+        <div class="remote-display" id="remote-display">--</div>
+        <div class="remote-buttons">
+            <button class="power-btn" id="power-btn">电源</button>
+            <button id="mode-btn">模式</button>
+            <button id="swing-btn">摆风</button>
+            <button id="temp-up">▲</button>
+            <div class="temp-display" id="temp-display">26</div>
+            <button id="temp-down">▼</button>
+            <button id="fan-speed">风速</button>
+            <button id="timer-btn">定时</button>
+            <button id="sleep-btn">睡眠</button>
+        </div>
+    </div>
+    
+    <script>
+        // 获取DOM元素
+        const acUnit = document.getElementById('ac-unit');
+        const acDisplay = document.getElementById('ac-display');
+        const remoteDisplay = document.getElementById('remote-display');
+        const tempDisplay = document.getElementById('temp-display');
+        const powerBtn = document.getElementById('power-btn');
+        const modeBtn = document.getElementById('mode-btn');
+        const tempUpBtn = document.getElementById('temp-up');
+        const tempDownBtn = document.getElementById('temp-down');
+        const fanSpeedBtn = document.getElementById('fan-speed');
+        const swingBtn = document.getElementById('swing-btn');
+        const airFlow = document.getElementById('air-flow');
+        
+        // 空调状态
+        let isOn = false;
+        let currentMode = 'cool'; // cool, heat, dry, fan
+        let currentTemp = 26;
+        let fanSpeed = 'auto'; // low, medium, high, auto
+        let isSwing = false;
+        
+        // 模式名称映射
+        const modeNames = {
+            cool: '制冷',
+            heat: '制热',
+            dry: '除湿',
+            fan: '送风'
+        };
+        
+        // 风速名称映射
+        const fanSpeedNames = {
+            low: '低风',
+            medium: '中风',
+            high: '高风',
+            auto: '自动'
+        };
+        
+        // 更新显示
+        function updateDisplay() {
+            if (isOn) {
+                acUnit.classList.add('ac-on');
+                acDisplay.textContent = `${modeNames[currentMode]} ${currentTemp}°C ${fanSpeedNames[fanSpeed]}`;
+                remoteDisplay.textContent = `${modeNames[currentMode]} ${currentTemp}°C ${isSwing ? '摆风' : ''}`;
+                tempDisplay.textContent = currentTemp;
+                powerBtn.classList.add('on');
+            } else {
+                acUnit.classList.remove('ac-on');
+                acDisplay.textContent = '关闭';
+                remoteDisplay.textContent = '--';
+                powerBtn.classList.remove('on');
+            }
+        }
+        
+        // 按钮事件
+        powerBtn.addEventListener('click', () => {
+            isOn = !isOn;
+            updateDisplay();
+        });
+        
+        modeBtn.addEventListener('click', () => {
+            if (!isOn) return;
+            
+            const modes = ['cool', 'heat', 'dry', 'fan'];
+            const currentIndex = modes.indexOf(currentMode);
+            currentMode = modes[(currentIndex + 1) % modes.length];
+            updateDisplay();
+        });
+        
+        tempUpBtn.addEventListener('click', () => {
+            if (!isOn) return;
+            
+            if (currentTemp < 30) {
+                currentTemp++;
+                updateDisplay();
+            }
+        });
+        
+        tempDownBtn.addEventListener('click', () => {
+            if (!isOn) return;
+            
+            if (currentTemp > 16) {
+                currentTemp--;
+                updateDisplay();
+            }
+        });
+        
+        fanSpeedBtn.addEventListener('click', () => {
+            if (!isOn) return;
+            
+            const speeds = ['auto', 'low', 'medium', 'high'];
+            const currentIndex = speeds.indexOf(fanSpeed);
+            fanSpeed = speeds[(currentIndex + 1) % speeds.length];
+            updateDisplay();
+        });
+        
+        swingBtn.addEventListener('click', () => {
+            if (!isOn) return;
+            
+            isSwing = !isSwing;
+            updateDisplay();
+        });
+        
+        // 初始化
+        updateDisplay();
+    </script>
 </body>
 </html>
