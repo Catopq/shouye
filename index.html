@@ -3,269 +3,193 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>空调遥控板模拟器</title>
+    <title>我的导航网站</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             padding: 20px;
         }
-        
-        .air-conditioner {
-            width: 300px;
-            height: 150px;
-            background-color: white;
-            border-radius: 15px;
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
             margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        }
+
+        .nav-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            padding: 30px 20px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
             position: relative;
             overflow: hidden;
         }
-        
-        .ac-display {
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 10px;
-        }
-        
-        .ac-vents {
-            display: flex;
-            width: 80%;
-            justify-content: space-around;
-        }
-        
-        .vent {
-            width: 40px;
-            height: 10px;
-            background-color: #e0e0e0;
-            border-radius: 5px;
-        }
-        
-        .remote {
-            background-color: #333;
-            border-radius: 20px;
-            padding: 20px;
-            width: 300px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-        
-        .remote-display {
-            background-color: #222;
-            color: #0f0;
-            font-family: 'Courier New', monospace;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            text-align: center;
-            height: 20px;
-        }
-        
-        .remote-buttons {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-        }
-        
-        button {
-            background-color: #444;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            font-size: 18px;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0 auto;
-        }
-        
-        button:hover {
-            background-color: #555;
-        }
-        
-        button:active {
-            transform: scale(0.95);
-            background-color: #666;
-        }
-        
-        .power-btn {
-            background-color: #d00;
-        }
-        
-        .power-btn.on {
-            background-color: #0a0;
-        }
-        
-        .mode-btn {
-            background-color: #06c;
-        }
-        
-        .temp-display {
-            font-size: 28px;
-            font-weight: bold;
-        }
-        
-        .air-flow {
+
+        .nav-item::before {
+            content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
+            top: 0;
+            left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to bottom, rgba(173, 216, 230, 0.3), transparent);
-            transform-origin: top center;
-            transform: translateX(-50%) scaleY(0);
-            transition: transform 0.3s ease;
-            z-index: -1;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
         }
-        
-        .ac-on .air-flow {
-            transform: translateX(-50%) scaleY(1);
+
+        .nav-item:hover::before {
+            left: 100%;
         }
+
+        .nav-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-item:nth-child(1) {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+        }
+
+        .nav-item:nth-child(1):hover {
+            box-shadow: 0 15px 30px rgba(255, 107, 107, 0.4);
+        }
+
+        .nav-item:nth-child(2) {
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            box-shadow: 0 8px 20px rgba(78, 205, 196, 0.3);
+        }
+
+        .nav-item:nth-child(2):hover {
+            box-shadow: 0 15px 30px rgba(78, 205, 196, 0.4);
+        }
+
+        .nav-item:nth-child(3) {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #333;
+            box-shadow: 0 8px 20px rgba(168, 237, 234, 0.3);
+        }
+
+        .nav-item:nth-child(3):hover {
+            box-shadow: 0 15px 30px rgba(168, 237, 234, 0.4);
+        }
+
+        .nav-item h3 {
+            font-size: 1.3em;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .nav-item p {
+            font-size: 0.9em;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        .footer {
+            margin-top: 30px;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+                margin-bottom: 30px;
+            }
+            
+            .nav-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .nav-item {
+                padding: 25px 15px;
+            }
+        }
+
+        /* 加载动画 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .nav-item {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .nav-item:nth-child(1) { animation-delay: 0.1s; }
+        .nav-item:nth-child(2) { animation-delay: 0.2s; }
+        .nav-item:nth-child(3) { animation-delay: 0.3s; }
     </style>
 </head>
 <body>
-    <h1>空调遥控板模拟器</h1>
-    
-    <div class="air-conditioner" id="ac-unit">
-        <div class="air-flow" id="air-flow"></div>
-        <div class="ac-display" id="ac-display">关闭</div>
-        <div class="ac-vents">
-            <div class="vent"></div>
-            <div class="vent"></div>
-            <div class="vent"></div>
+    <div class="container">
+        <h1>🌟 工具箱</h1>
+        
+        <div class="nav-grid">
+            <a href="http://jietu.caning.cc" class="nav-item" target="_blank">
+                <h3>🖼️ 拆图网</h3>
+                <p>图片拆分工具<br>轻松处理图片</p>
+            </a>
+            
+            <a href="http://pintu.caning.cc" class="nav-item" target="_blank">
+                <h3>🧩 拼图网</h3>
+                <p>图片拼接工具<br>创意拼图体验</p>
+            </a>
+            
+            <a href="https://qun.qq.com/universal-share/share?ac=1&authKey=ATUupJLDGuqFurUwk35LLpjTya5%2B6%2BN%2BqGRgWXCdJfHeZjPEYsBJ%2F4uwgReXdlrI&busi_data=eyJncm91cENvZGUiOiI5NTg5MjcxMTgiLCJ0b2tlbiI6Imhhd3VQUitNWWlLV1NEZ0YwazlraUh6WVllRVIxbTc0cWFnYXFtcFB3RWFJbzgrdjU2S0hmUkl1eUF2VWJGMnkiLCJ1aW4iOiIyMzAzNTMzNCJ9&data=k0xz2QmyjdIZTwRygFtnnpt95F0HOgvq-UV_xlWg-eYZn3ZITNwodxSjeV0IsXU6J03J-XbpHPOGefcDb3EBXQ&svctype=4&tempid=h5_group_info" class="nav-item" target="_blank">
+                <h3>👥 加入群聊</h3>
+                <p>交流分享群<br>一起讨论学习</p>
+            </a>
+        </div>
+        
+        <div class="footer">
+            <p>💡 点击图标快速访问</p>
         </div>
     </div>
-    
-    <div class="remote">
-        <div class="remote-display" id="remote-display">--</div>
-        <div class="remote-buttons">
-            <button class="power-btn" id="power-btn">电源</button>
-            <button id="mode-btn">模式</button>
-            <button id="swing-btn">摆风</button>
-            <button id="temp-up">▲</button>
-            <div class="temp-display" id="temp-display">26</div>
-            <button id="temp-down">▼</button>
-            <button id="fan-speed">风速</button>
-            <button id="timer-btn">定时</button>
-            <button id="sleep-btn">睡眠</button>
-        </div>
-    </div>
-    
-    <script>
-        // 获取DOM元素
-        const acUnit = document.getElementById('ac-unit');
-        const acDisplay = document.getElementById('ac-display');
-        const remoteDisplay = document.getElementById('remote-display');
-        const tempDisplay = document.getElementById('temp-display');
-        const powerBtn = document.getElementById('power-btn');
-        const modeBtn = document.getElementById('mode-btn');
-        const tempUpBtn = document.getElementById('temp-up');
-        const tempDownBtn = document.getElementById('temp-down');
-        const fanSpeedBtn = document.getElementById('fan-speed');
-        const swingBtn = document.getElementById('swing-btn');
-        const airFlow = document.getElementById('air-flow');
-        
-        // 空调状态
-        let isOn = false;
-        let currentMode = 'cool'; // cool, heat, dry, fan
-        let currentTemp = 26;
-        let fanSpeed = 'auto'; // low, medium, high, auto
-        let isSwing = false;
-        
-        // 模式名称映射
-        const modeNames = {
-            cool: '制冷',
-            heat: '制热',
-            dry: '除湿',
-            fan: '送风'
-        };
-        
-        // 风速名称映射
-        const fanSpeedNames = {
-            low: '低风',
-            medium: '中风',
-            high: '高风',
-            auto: '自动'
-        };
-        
-        // 更新显示
-        function updateDisplay() {
-            if (isOn) {
-                acUnit.classList.add('ac-on');
-                acDisplay.textContent = `${modeNames[currentMode]} ${currentTemp}°C ${fanSpeedNames[fanSpeed]}`;
-                remoteDisplay.textContent = `${modeNames[currentMode]} ${currentTemp}°C ${isSwing ? '摆风' : ''}`;
-                tempDisplay.textContent = currentTemp;
-                powerBtn.classList.add('on');
-            } else {
-                acUnit.classList.remove('ac-on');
-                acDisplay.textContent = '关闭';
-                remoteDisplay.textContent = '--';
-                powerBtn.classList.remove('on');
-            }
-        }
-        
-        // 按钮事件
-        powerBtn.addEventListener('click', () => {
-            isOn = !isOn;
-            updateDisplay();
-        });
-        
-        modeBtn.addEventListener('click', () => {
-            if (!isOn) return;
-            
-            const modes = ['cool', 'heat', 'dry', 'fan'];
-            const currentIndex = modes.indexOf(currentMode);
-            currentMode = modes[(currentIndex + 1) % modes.length];
-            updateDisplay();
-        });
-        
-        tempUpBtn.addEventListener('click', () => {
-            if (!isOn) return;
-            
-            if (currentTemp < 30) {
-                currentTemp++;
-                updateDisplay();
-            }
-        });
-        
-        tempDownBtn.addEventListener('click', () => {
-            if (!isOn) return;
-            
-            if (currentTemp > 16) {
-                currentTemp--;
-                updateDisplay();
-            }
-        });
-        
-        fanSpeedBtn.addEventListener('click', () => {
-            if (!isOn) return;
-            
-            const speeds = ['auto', 'low', 'medium', 'high'];
-            const currentIndex = speeds.indexOf(fanSpeed);
-            fanSpeed = speeds[(currentIndex + 1) % speeds.length];
-            updateDisplay();
-        });
-        
-        swingBtn.addEventListener('click', () => {
-            if (!isOn) return;
-            
-            isSwing = !isSwing;
-            updateDisplay();
-        });
-        
-        // 初始化
-        updateDisplay();
-    </script>
 </body>
 </html>
